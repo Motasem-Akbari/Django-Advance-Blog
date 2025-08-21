@@ -1,6 +1,10 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
 # Create your models here.
+
+# getting user models here
+User = get_user_model()
+
 
 class Post(models.Model):
     '''
