@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from .models import Post
@@ -27,8 +27,6 @@ class IndexView(TemplateView):
         condext["posts"] = Post.objects.all()
         return condext
     
-
-
 ''' FBV for redirect view
 
 from django.shortcuts import redirect
@@ -42,4 +40,16 @@ def redirectToMakatab(request):
 
 class RedirectToMaktab(RedirectView):
     url = "https://maktabkhooneh.org/"
+    
+class Postlist(ListView):
+    '''
+    We use it to get post.
+    '''
+    # model = Post
+    # queryset = Post.objects.all()
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        posts = Post.objects.filter(status=True)
+        return super().get_queryset()
     
