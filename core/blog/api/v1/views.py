@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated , IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from .serializers import PostSerializers
 from blog.models import Post
@@ -23,6 +23,7 @@ def postList(request):
 
 
 @api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def postDetail(request, id):
     post = get_object_or_404(Post, pk=id, status=True)
     if request.method == 'GET':
