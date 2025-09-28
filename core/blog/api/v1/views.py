@@ -20,19 +20,14 @@ def postList(request):
         
 
 
-@api_view()
+@api_view(['GET','PUT'])
 def postDetail(request, id):
     post = get_object_or_404(Post, pk=id, status=True)
-    serializer = PostSerializers(post)
-    return Response(serializer.data)
-
-    # try:
-    #     post = Post.objects.get(pk=id)
-    #     serializer = PostSerializers(post)
-    #     return Response(serializers.data)
-    # except Post.DoesNotExist:
-    #     '''
-    #     post not found
-    #     '''
-    #     return Response({'detail':'Post not found'},status= 404)
-    #     return Response({'detail':'Post not found'},status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = PostSerializers(post)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = PostSerializers(post,data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
