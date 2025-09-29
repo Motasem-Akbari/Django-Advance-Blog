@@ -6,6 +6,7 @@ app_name = "api-v1"
 
 router = DefaultRouter()
 router.register('post',views.PostModelViewSet,basename='list')
+router.register('Category',views.CategoryModelViewSet,basename='Category')
 urlpatterns = router.urls
 
 
