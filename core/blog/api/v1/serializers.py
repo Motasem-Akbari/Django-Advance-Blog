@@ -2,13 +2,13 @@ from rest_framework import serializers
 from blog.models import Post
 
 
-# class PostSerializers(serializers.Serializer):
+# class PostSerializer(serializers.Serializer):
 #     id = serializers.IntegerField()
 #     title = serializers.CharField(max_length = 255)
 
 
 
-class PostSerializers(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Post
