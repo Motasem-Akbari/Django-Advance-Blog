@@ -42,6 +42,7 @@ def postDetail(request, id):
         return Response({'detail': 'item removed successfully'}, status=status.HTTP_204_NO_CONTENT)
 """
 
+# Example for ApiView Class Based View
 '''
 class PostList(APIView):
     """getting a list of post and a creating new posts"""
@@ -62,9 +63,36 @@ class PostList(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+class PostDetail(APIView):
+    """ getting detail of the post and edit removing it """
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = PostSerializer
+
+    def get(self, request, id):
+        """ retrieving the post data """
+        post = get_object_or_404(Post, pk=id, status=True)
+        serializer = self.serializer_class(post)
+        return Response(serializer.data)
+
+    def put(self, request, id):
+        """ editing the post data """
+        post = get_object_or_404(Post, pk=id, status=True)
+        serializer = PostSerializer(post, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, id):
+        """ deleting the post object """
+        post = get_object_or_404(Post, pk=id, status=True)
+        post.delete()
+        return Response({'detail': 'item removed successfully'}, status=status.HTTP_204_NO_CONTENT)
 '''
 
-
+# Example for GenericApiView is Class Based View
+'''
 class PostList(ListCreateAPIView):
     """getting a list of post and a creating new posts"""
 
@@ -73,39 +101,15 @@ class PostList(ListCreateAPIView):
     queryset = Post.objects.filter(status=True)
 
 
-# class PostDetail(APIView):
-#     """ getting detail of the post and edit removing it """
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#     serializer_class = PostSerializer
-
-#     def get(self, request, id):
-#         """ retrieving the post data """
-#         post = get_object_or_404(Post, pk=id, status=True)
-#         serializer = self.serializer_class(post)
-#         return Response(serializer.data)
-
-#     def put(self, request, id):
-#         """ editing the post data """
-#         post = get_object_or_404(Post, pk=id, status=True)
-#         serializer = PostSerializer(post, data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data)
-
-#     def delete(self, request, id):
-#         """ deleting the post object """
-#         post = get_object_or_404(Post, pk=id, status=True)
-#         post.delete()
-#         return Response({'detail': 'item removed successfully'}, status=status.HTTP_204_NO_CONTENT)
-
-
 class PostDetail(RetrieveUpdateDestroyAPIView):
     """ getting detail of the post and edit removing it """
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
+'''
 
-
+# Example for ViewSet in CBV
+'''
 class PostViewSet(viewsets.ViewSet):
     """ ViewSet for listing or retrieving users and ... """
 
@@ -133,3 +137,13 @@ class PostViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         pass
+'''
+
+# Example for ModelViewSet CBV
+class PostModelViewSet(viewsets.ModelViewSet):
+    """ ViewSet for listing or retrieving users and ... """
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = PostSerializer
+    queryset = Post.objects.filter(status=True)
+
