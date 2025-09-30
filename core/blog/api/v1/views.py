@@ -142,6 +142,7 @@ class PostViewSet(viewsets.ViewSet):
 '''
 
 # Example for ModelViewSet CBV
+class PostModelViewSet(viewsets.ModelViewSet):
     """ ViewSet for listing or retrieving users and ... """
 
     permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
