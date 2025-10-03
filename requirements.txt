@@ -12,3 +12,6 @@ django-filters
 drf-yasg[validation]
 
 # Deployment Modules 
+
+# email third party modules  
+django-mail-templated
