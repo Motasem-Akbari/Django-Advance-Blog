@@ -4,10 +4,11 @@ Django>=4.2,<4.3
 python-decouple
 pillow
 djangorestframework
+djangorestframework-simplejwt
 
 # Third party Modules
 markdown
-django-filter
+django-filters
 drf-yasg[validation]
 
 # Deployment Modules 
