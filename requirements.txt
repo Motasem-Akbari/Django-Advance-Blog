@@ -21,3 +21,4 @@ djoser
 
 # refactoring and tests
 black
+flake8
