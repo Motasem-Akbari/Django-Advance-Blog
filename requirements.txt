@@ -15,3 +15,9 @@ drf-yasg[validation]
 
 # email third party modules  
 django-mail-templated
+
+#API V2
+djoser
+
+# refactoring and tests
+black

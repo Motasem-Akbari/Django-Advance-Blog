@@ -1,12 +1,16 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from .serializers import PostSerializer,CategorySerializer
-from blog.models import Post,Category
+from .serializers import PostSerializer, CategorySerializer
+from blog.models import Post, Category
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (
+    GenericAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 from rest_framework import mixins
 from rest_framework import viewsets
 from .permissions import IsOwnerOrReadOnly
@@ -143,22 +147,23 @@ class PostViewSet(viewsets.ViewSet):
         pass
 '''
 
+
 # Example for ModelViewSet CBV
 class PostModelViewSet(viewsets.ModelViewSet):
-    """ ViewSet for listing or retrieving users and ... """
+    """ViewSet for listing or retrieving users and ..."""
 
-    permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
-    filter_backends = [DjangoFilterBackend,SearchFilter,OrderingFilter]
-    filterset_fields = ['category', 'author', 'status']
-    search_fields = ['username', 'email', 'profile__profession']
-    ordering_fields = ['published_date'] 
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ["category", "author", "status"]
+    search_fields = ["username", "email", "profile__profession"]
+    ordering_fields = ["published_date"]
     pagination_class = DefaultPagination
+
 
 class CategoryModelViewSet(viewsets.ModelViewSet):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-    
