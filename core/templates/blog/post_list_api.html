@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post List</title>
+  </head>
+  <body>
+    <h1>Post list</h1>
+      {% comment %} <div>
+        <a href="{% url 'blog:post-detail' pk=post.id  %}"><h1>{{post.id}} - {{ post.title }}</h1></a>
+        <p>{{ post.author }}</p>
+        <p>{{ post.content }}</p>
+        <small>{{ post.author.first_name }} - {{ post.author.last_name }}</small>
+        <a href="{% url 'blog:post-edit' pk=post.id  %}">
+            <h5>Edit</h5>
+        </a>
+        <a href="{% url 'blog:post-delete' pk=post.id  %}">
+            <h2>Delete</h2>
+        </a>
+      </div> {% endcomment %}
+
+  </body>
+</html>
